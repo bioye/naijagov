@@ -1,28 +1,36 @@
-version: 2
-jobs:
-  deploy:
-    docker:
-      - image: circleci/php:7.1.5-browsers
+deployment:
+  production:
+    branch: master
+    commands:
+      - scp -r naijagov/* bioye@naijagov:/htdocs/
+
+
+
+# version: 2
+# jobs:
+#   deploy:
+#     docker:
+#       - image: circleci/php:7.1.5-browsers
  
-    working_directory: ~/repo
+#     working_directory: ~/repo
  
-    steps:
-      - checkout
+#     steps:
+#       - checkout
  
-      - run: 
-          name: Deploy Master Branch
-          command: |
-            sudo apt-get update
-            sudo apt-get -qq install git-ftp
-            echo "Deploying project ...."
-            echo $(git status)
-            git ftp init --init-if-not-exist --user "${FTP_USER}" --passwd "${FTP_PWD}" ${FTP_LOCATION}
+#       - run: 
+#           name: Deploy Master Branch
+#           command: |
+#             sudo apt-get update
+#             sudo apt-get -qq install git-ftp
+#             echo "Deploying project ...."
+#             echo $(git status)
+#             git ftp init --init-if-not-exist --user "${FTP_USER}" --passwd "${FTP_PWD}" ${FTP_LOCATION}
  
-workflows:
-  version: 2
-  just-deploy:
-    jobs:
-      - deploy:
-          filters:
-            branches:
-              only: master
+# workflows:
+#   version: 2
+#   just-deploy:
+#     jobs:
+#       - deploy:
+#           filters:
+#             branches:
+#               only: master
