@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <style>
+    table{width: 100%;}
+    table td, table th {border: 1px solid grey; text-align: left}
+    table th {background: #eee;}
+    .pagination-div{user-select: none;}
+    .pagination-div span{border-radius: 3px; border: 1px solid #999;
+        padding: 5px; margin: 10px 0px 0px 10px; display: inline-block}
+    span.selected{background: #ccf;}
+    .cell-right{text-align: right}
+    </style>
+</head>
+<body>
+    <h2>Polling Units</h2>
+    <div>
+    <table>
+        <tr>
+            <th>#</th>
+            <th>Code</th>
+            <th>Description</th>
+            <th>Longitude</th>
+            <th>Latitude</th>
+        </tr>
+        <tr th:each="pollingUnit, i: ${form.pollingUnits}">
+            <td th:text="${i.index+1}"></td>
+            <td style="white-space: nowrap;" th:text="${pollingUnit.fullCode}"></td>
+            <td th:text="${pollingUnit.description}"></td>
+            <td style="white-space: nowrap;" th:text="${pollingUnit.longitude}"></td>
+            <td style="white-space: nowrap;" th:text="${pollingUnit.latitude}"></td>
+        </tr>
+    </table>
+    </div>
+    </body>
+    </html>
