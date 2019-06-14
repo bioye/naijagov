@@ -24,8 +24,8 @@
             <th>Longitude</th>
             <th>Latitude</th>
         </tr>
-        <tr th:each="pollingUnit, i: ${form.pollingUnits}">
-            <td th:text="${i.index+1}"></td>
+        <tr th:each="pollingUnit, i: ${form.pollingUnitsPage.content}">
+            <td th:text="${(form.pollingUnitsPage.number*form.pollingUnitsPage.size)+i.index+1}"></td>
             <td style="white-space: nowrap;" th:text="${pollingUnit.fullCode}"></td>
             <td th:text="${pollingUnit.description}"></td>
             <td style="white-space: nowrap;" th:text="${pollingUnit.longitude}"></td>
@@ -33,5 +33,18 @@
         </tr>
     </table>
     </div>
+
+    <div class="pagination-div">
+        <a th:href="@{/pollingunits(page=0,size=${form.pollingUnitsPage.size})}">First</a>
+        <span th:if="${form.pollingUnitsPage.hasPrevious()}">
+            <a th:href="@{/pollingunits(page=${form.pollingUnitsPage.number-1},size=${form.pollingUnitsPage.size})}">Previous</a>
+        </span>
+        Page<span th:text="${form.pollingUnitsPage.number+1}"></span> of <span th:text="${form.pollingUnitsPage.totalPages}"></span>
+        <span th:if="${form.pollingUnitsPage.hasNext()}">
+            <a th:href="@{/pollingunits(page=${form.pollingUnitsPage.number+1},size=${form.pollingUnitsPage.size})}">Next</a>
+        </span>
+        <a th:href="@{/pollingunits(page=${form.pollingUnitsPage.totalPages-1},size=${form.pollingUnitsPage.size})}">Last</a>
+    </div>
+
     </body>
     </html>

@@ -15,7 +15,7 @@ public class NaijagovController{
 
     @GetMapping("/pollingunits")
     public ModelAndView pollingUnits(Pageable pageable, @ModelAttribute Form form, ModelAndView mv){
-        form.setPollingUnits(pollingUnitService.listAllPollingUnits(pageable));
+        form.setPollingUnitsPage(pollingUnitService.listAllPollingUnits(pageable));
         mv.setViewName("pollingunits");
         return mv;
     }
