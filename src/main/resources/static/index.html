@@ -2,29 +2,13 @@
 	<head>
 		<!-- Global site tag (gtag.js) - Google Analytics -->
 		<script async src="https://www.googletagmanager.com/gtag/js?id=UA-141725675-1"></script>
-		<script>
-		  window.dataLayer = window.dataLayer || [];
-		  function gtag(){dataLayer.push(arguments);}
-		  gtag('js', new Date());
-		
-		  gtag('config', 'UA-141725675-1');
-		</script>
+		<script src="../js/googleanalytics.js"></script>
 		
 		<link rel="stylesheet" href="css/reveal.css">
 		<link rel="stylesheet" href="css/theme/league.css">
 	</head>
 	<!--Start of Tawk.to Script-->
-	<script type="text/javascript">
-	var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
-	(function(){
-	var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-	s1.async=true;
-	s1.src='https://embed.tawk.to/5cfc0824b534676f32adfc77/default';
-	s1.charset='UTF-8';
-	s1.setAttribute('crossorigin','*');
-	s0.parentNode.insertBefore(s1,s0);
-	})();
-	</script>
+	<script type="text/javascript" src="../js/tawkto.js"></script>
 	<!--End of Tawk.to Script-->
 	<body>
 		<div class="reveal">
@@ -51,12 +35,12 @@
 		</div>
 		<script src="js/reveal.js"></script>
 		<script>
-      Reveal.initialize();
-      // Slide every five seconds
-      Reveal.configure({
-        autoSlide: 2000,
-        transition:"zoom"
-      });
+			Reveal.initialize();
+			// Slide every five seconds
+			Reveal.configure({
+				autoSlide: 2000,
+				transition:"zoom"
+			});
 		</script>
 	</body>
 </html>
