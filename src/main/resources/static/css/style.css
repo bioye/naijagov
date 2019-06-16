@@ -1,0 +1,8 @@
+table{width: 100%;}
+    table td, table th {border: 1px solid grey; text-align: left}
+    table th {background: #eee;}
+    .pagination-div{user-select: none;}
+    .pagination-div span{border-radius: 3px; border: 1px solid #999;
+        padding: 5px; margin: 10px 0px 0px 10px; display: inline-block}
+    span.selected{background: #ccf;}
+    .cell-right{text-align: right}

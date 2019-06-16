@@ -2,27 +2,25 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 <head>
-    <style>
-    table{width: 100%;}
-    table td, table th {border: 1px solid grey; text-align: left}
-    table th {background: #eee;}
-    .pagination-div{user-select: none;}
-    .pagination-div span{border-radius: 3px; border: 1px solid #999;
-        padding: 5px; margin: 10px 0px 0px 10px; display: inline-block}
-    span.selected{background: #ccf;}
-    .cell-right{text-align: right}
-    </style>
-</head>
-<body>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-141725675-1"></script>
+    <script type="text/javascript" th:src="@{/js/googleanalytics.js}"></script>
+    </script>
+	</head>
+    <!--Start of Tawk.to Script-->
+    <script type="text/javascript" th:src="@{/js/tawkto.js}"></script>
+    <!--End of Tawk.to Script-->
+	<body>
     <h2>Polling Units</h2>
     <div>
     <table>
         <tr>
             <th>#</th>
-            <th>Code</th>
-            <th>Description</th>
-            <th>Longitude</th>
-            <th>Latitude</th>
+            <th><a th:href="@{?sortBy=code&sortDirection=ASC}">Code</th>
+            <th><a th:href="@{?sortBy=description&sortDirection=ASC}">Description</th>
+            <th><a th:href="@{?sortBy=longitude&sortDirection=ASC}">Longitude</th>
+            <th><a th:href="@{?sortBy=latitude&sortDirection=ASC}">Latitude</th>
         </tr>
         <tr th:each="pollingUnit, i: ${form.pollingUnitsPage.content}">
             <td th:text="${(form.pollingUnitsPage.number*form.pollingUnitsPage.size)+i.index+1}"></td>
