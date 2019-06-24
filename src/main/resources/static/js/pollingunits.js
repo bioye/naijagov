@@ -162,7 +162,7 @@ class PollingUnit extends React.Component{
 		return (
 			<tr>
                 <td>#</td>
-				<td>{this.props.pollingunit.code}</td>
+				<td>{this.props.pollingunit.fullCode}</td>
 				<td>{this.props.pollingunit.description}</td>
 				<td>{this.props.pollingunit.longitude}</td>
 				<td>{this.props.pollingunit.latitude}</td>
