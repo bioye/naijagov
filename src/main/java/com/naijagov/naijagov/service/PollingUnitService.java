@@ -17,9 +17,9 @@ public class PollingUnitService{
         return pollingUnitRepository.findById(id);
     }
 
-    public Page<PollingUnit> listAllPollingUnits(Pageable page){
+    public Page<PollingUnit> listAllPollingUnits(Pageable page) {
         return pollingUnitRepository.findAll(page);
-    }
+    } 
 
     @Autowired
     public PollingUnitService(PollingUnitRepository pollingUnitRepository){

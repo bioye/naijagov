@@ -1,6 +1,7 @@
 package com.naijagov.naijagov.repository;
 
 import com.naijagov.naijagov.model.PollingUnit;
+
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.rest.core.annotation.RestResource;
 import org.springframework.stereotype.Repository;
