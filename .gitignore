@@ -1,5 +1,7 @@
 HELP.md
 /target/
+/react/
+/node_modules/
 !.mvn/wrapper/maven-wrapper.jar
 
 ### STS ###

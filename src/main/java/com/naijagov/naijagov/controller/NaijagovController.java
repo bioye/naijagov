@@ -21,7 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class NaijagovController{
 
     @GetMapping("/pollingunits")
-    public ModelAndView pollingUnits(@PageableDefault(size=20, sort="fullCode", 
+    public ModelAndView pollingUnits(@PageableDefault(size=10, sort="fullCode", 
                                 direction=Sort.Direction.ASC) Pageable pageable, 
                                 @ModelAttribute Form form, ModelAndView mv, 
                                 @RequestParam("sortBy") Optional<String> sortBy, 
