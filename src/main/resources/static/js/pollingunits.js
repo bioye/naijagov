@@ -136,6 +136,7 @@ class PollingUnits extends React.Component{
 				<table>
 					<tbody>
 						<tr>
+							<th>#</th>
 							<th>Code</th>
 							<th>Description</th>
 							<th>Longitude</th>
