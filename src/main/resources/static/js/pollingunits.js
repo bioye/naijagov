@@ -159,6 +159,7 @@ class PollingUnit extends React.Component{
 	}
 
 	render() {
+		console.log('this.props.pollingunit ', this.props.pollingunit)
 		return (
 			<tr>
 				<td>{this.props.pollingunit.fullCode}</td>
