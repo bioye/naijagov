@@ -43,15 +43,10 @@ class PollingUnitsMaterial extends Component {
         <div style={{ maxWidth: "100%" }}>
             <MaterialTable
             columns={[
-                { title: "Code", field: "code" },
+                { title: "Code", field: "fullCode" },
                 { title: "Description", field: "description" },
                 { title: "Longitude", field: "longitude", type: "numeric" },
-                { title: "Latitude", field: "latitude", type: "numeric" },
-                {
-                title: "Doğum Yeri",
-                field: "birthCity",
-                lookup: { 34: "İstanbul", 63: "Şanlıurfa" }
-                }
+                { title: "Latitude", field: "latitude", type: "numeric" }
             ]}
             data={this.state.pollingunits}
             title="Polling Units"
