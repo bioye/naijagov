@@ -12,12 +12,12 @@ class PollingUnitsMaterial extends Component {
 
 	constructor(props) {
 		super(props);
-		this.state = {pollingunits: [], attributes: [], pageSize: 10, links: {}};
+		this.state = {pollingunits: [], attributes: [], pageSize: 10, links: {}, index: []};
 	}
 
 	loadFromServer(pageSize) {
 		follow(client, root, [
-			{rel: 'pollingUnits', params: {size: pageSize}}]
+			{rel: 'pollingCentres', params: {size: pageSize}}]
 		).then(pollingunitCollection => {
 			return client({
 				method: 'GET',
@@ -29,7 +29,7 @@ class PollingUnitsMaterial extends Component {
 			});
 		}).done(pollingunitCollection => {
 			this.setState({
-				pollingunits: pollingunitCollection.entity._embedded.pollingUnits,
+                pollingunits: pollingunitCollection.entity._embedded.pollingCentres,
 				attributes: Object.keys(this.schema.properties),
 				pageSize: pageSize,
 				links: pollingunitCollection.entity._links});

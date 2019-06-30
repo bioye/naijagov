@@ -114,8 +114,8 @@ class PollingUnits extends React.Component{
 	}
 	
 	render() {
-		const pollingunits = this.props.pollingunits.map(pollingunit =>
-			<PollingUnit key={pollingunit._links.self.href} pollingunit={pollingunit}/>
+		const pollingunits = this.props.pollingunits.map((pollingunit, index) =>
+			<PollingUnit key={pollingunit._links.self.href} pollingunit={pollingunit} index={index}/>
 		);
 		const navLinks = [];
 		if ("first" in this.props.links) {
@@ -162,6 +162,7 @@ class PollingUnit extends React.Component{
 		console.log('this.props.pollingunit ', this.props.pollingunit)
 		return (
 			<tr>
+				<td>{this.props.index+1}</td>
 				<td>{this.props.pollingunit.fullCode}</td>
 				<td>{this.props.pollingunit.description}</td>
 				<td>{this.props.pollingunit.longitude}</td>
