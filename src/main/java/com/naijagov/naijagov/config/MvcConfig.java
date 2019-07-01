@@ -8,6 +8,6 @@ public class MvcConfig implements WebMvcConfigurer{
     
     public void addViewControllers(ViewControllerRegistry registry){
         registry.addViewController("/pollingunitsreact").setViewName("pollingunitsreact");
-        registry.addViewController("/pollingunitsmaterial").setViewName("pollingunitsmaterial");
+        registry.addViewController("/pollingunits").setViewName("pollingunits");
     }
 }

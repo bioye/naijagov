@@ -2,7 +2,7 @@
 var path = require('path');
 
 module.exports = {
-    entry: './src/main/resources/static/js/pollingunitsmaterial.js',
+    entry: './src/main/resources/static/js/pollingunits.js',
     devtool: 'sourcemaps',
     cache: true,
     mode: 'development',
