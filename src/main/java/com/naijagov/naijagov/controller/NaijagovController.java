@@ -20,7 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 @SessionAttributes({"form"})
 public class NaijagovController{
 
-    @GetMapping("/pollingunits")
+    @GetMapping("/pollingunitsthyme")
     public ModelAndView pollingUnits(@PageableDefault(size=10, sort="fullCode", 
                                 direction=Sort.Direction.ASC) Pageable pageable, 
                                 @ModelAttribute Form form, ModelAndView mv, 
@@ -42,7 +42,7 @@ public class NaijagovController{
                                         form.getPollingUnitsPage().getSort());
         form.setPollingUnitsPage(pollingUnitService.listAllPollingUnits(sortedPage));
 
-        mv.setViewName("pollingunits");
+        mv.setViewName("pollingunitsthyme");
         return mv;
     }
     

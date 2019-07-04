@@ -1,64 +1,59 @@
 'use strict';
 
-const React = require('react');
-const ReactDOM = require('react-dom');
-const client = require('./client');
+import React, { Component } from "react";
+import ReactDOM from "react-dom";
+import MaterialTable from "material-table";
 
-class PollingUnitsComponent extends React.Component {
+const client = require('./client');
+const follow = require('./follow');
+const root = '/api';
+
+class PollingUnitsMaterial extends Component {
 
 	constructor(props) {
 		super(props);
-		this.state = {pollingunits: []};
+		this.state = {pollingunits: [], attributes: [], pageSize: 10, links: {}, index: []};
 	}
-	componentDidMount() {
-		client({method: 'GET', path: '/api/pollingUnits'}).done(response => {
-			this.setState({pollingunits: response.entity._embedded.pollingUnits});
+
+	loadFromServer(pageSize) {
+		follow(client, root, [
+			{rel: 'pollingCentres', params: {size: pageSize}}]
+		).then(pollingunitCollection => {
+			return client({
+				method: 'GET',
+				path: pollingunitCollection.entity._links.profile.href,
+				headers: {'Accept': 'application/schema+json'}
+			}).then(schema => {
+				this.schema = schema.entity;
+				return pollingunitCollection;
+			});
+		}).done(pollingunitCollection => {
+			this.setState({
+                pollingunits: pollingunitCollection.entity._embedded.pollingCentres,
+				attributes: Object.keys(this.schema.properties),
+				pageSize: pageSize,
+				links: pollingunitCollection.entity._links});
 		});
 	}
-	render() {
-		return (
-			<PollingUnits pollingunits={this.state.pollingunits}/>
-		)
+	componentDidMount() {
+		this.loadFromServer(this.state.pageSize);
 	}
-}
-class PollingUnits extends React.Component{
-	render() {
-		//if (this.props.data) {
-			const pollingunits = this.props.pollingunits.map(pollingunit =>
-				<PollingUnit key={pollingunit._links.self.href} pollingunit={pollingunit}/>
-			);
-		//}
-		return (
-			<table>
-				<tbody>
-					<tr>
-                        <th>#</th>
-                        <th>Code</th>
-                        <th>Description</th>
-                        <th>Longitude</th>
-                        <th>Latitude</th>
-					</tr>
-						{pollingunits}
-				</tbody>
-			</table>
-		)
-	}
-}
-class PollingUnit extends React.Component{
-	render() {
-		return (
-			<tr>
-                <td>#</td>
-				<td>{this.props.pollingunit.code}</td>
-				<td>{this.props.pollingunit.description}</td>
-				<td>{this.props.pollingunit.longitude}</td>
-				<td>{this.props.pollingunit.latitude}</td>
-			</tr>
-		)
-	}
+    render() {
+        return (
+        <div style={{ maxWidth: "100%" }}>
+            <MaterialTable
+            columns={[
+                { title: "Code", field: "fullCode" },
+                { title: "Description", field: "description" },
+                { title: "Longitude", field: "longitude", type: "numeric" },
+                { title: "Latitude", field: "latitude", type: "numeric" }
+            ]}
+            data={this.state.pollingunits}
+            title="Polling Units"
+            />
+        </div>
+    );
+  }
 }
 
-ReactDOM.render(
-	<PollingUnitsComponent />,
-	document.getElementById('react')
-)
+ReactDOM.render(<PollingUnitsMaterial />, document.getElementById("react"));
