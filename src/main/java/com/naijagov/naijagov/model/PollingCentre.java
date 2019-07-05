@@ -5,7 +5,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="polling_unit")
+//@Table(name="polling_unit")
 public class PollingCentre{
 
     public String getDescription() {

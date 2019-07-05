@@ -2,9 +2,14 @@ package com.naijagov.naijagov.model;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class PollingUnit {
+    
+	public Ward getWard() {
+		return ward;
+	}
 
     public String getDescription() {
         return description;
@@ -30,6 +35,8 @@ public class PollingUnit {
         return id;
     }
 
+	@ManyToOne
+	private Ward ward;
 	private String description;
 	private int code;
 	private String fullCode;
@@ -37,4 +44,7 @@ public class PollingUnit {
     private float latitude;
     @Id
 	private int id;
+
+	private static final long serialVersionUID = 1759791770074149187L;
+
 }
