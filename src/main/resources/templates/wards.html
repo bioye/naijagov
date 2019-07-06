@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" th:href="@{css/materialize.min.css}"  media="screen,projection"/>
+
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-141725675-1"></script>
+    <script type="text/javascript" th:src="@{/js/googleanalytics.js}"></script>
+	</head>
+    <!--Start of Tawk.to Script-->
+    <script type="text/javascript" th:src="@{/js/tawkto.js}"></script>
+    <!--End of Tawk.to Script-->
+	<body>
+    <h2>Wards</h2>
+    <div>
+    <table class="striped responsive-table">
+        <tr>
+            <th>#</th>
+            <th><a th:href="@{?sortBy=fullCode&sortDirection=ASC}">Code</th>
+            <th><a th:href="@{?sortBy=description&sortDirection=ASC}">Name</th>
+        </tr>
+        <tr th:each="ward, i: ${form.wardsPage.content}">
+            <td th:text="${(form.wardsPage.number*form.wardsPage.size)+i.index+1}"></td>
+            <td style="white-space: nowrap;" th:text="${ward.fullCode}"></td>
+            <td th:text="${ward.name}"></td>
+        </tr>
+    </table>
+    </div>
+
+    <div class="pagination-div">
+        <a th:href="@{/wards(page=0,size=${form.wardsPage.size})}">First</a>
+        <span th:if="${form.wardsPage.hasPrevious()}">
+            <a th:href="@{/wards(page=${form.wardsPage.number-1},size=${form.wardsPage.size})}">Previous</a>
+        </span>
+        Page<span th:text="${form.wardsPage.number+1}"></span> of <span th:text="${form.wardsPage.totalPages}"></span>
+        <span th:if="${form.wardsPage.hasNext()}">
+            <a th:href="@{/wards(page=${form.wardsPage.number+1},size=${form.wardsPage.size})}">Next</a>
+        </span>
+        <a th:href="@{/wards(page=${form.wardsPage.totalPages-1},size=${form.wardsPage.size})}">Last</a>
+    </div>
+
+    <!--JavaScript at end of body for optimized loading-->
+    <script type="text/javascript" th:src="@{/js/materialize.min.js}"></script>
+
+    </body>
+    </html>
+    
