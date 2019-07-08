@@ -47,6 +47,13 @@ public class NaijagovController{
         return mv;
     }
 
+    @GetMapping("/pollingunit")
+	public ModelAndView displayPollingUnit(ModelAndView modelAndView, @RequestParam("id") String id) {
+
+		modelAndView.setViewName("pollingunit");
+		return modelAndView;		
+	}
+
     @GetMapping("/pollingunitsthyme")
     public ModelAndView pollingUnits(@PageableDefault(size=10, sort="fullCode", 
                                 direction=Sort.Direction.ASC) Pageable pageable, 
