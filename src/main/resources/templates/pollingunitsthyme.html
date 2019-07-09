@@ -32,7 +32,7 @@
         <tr th:each="pollingUnit, i: ${form.pollingUnitsPage.content}">
             <td th:text="${(form.pollingUnitsPage.number*form.pollingUnitsPage.size)+i.index+1}"></td>
             <td style="white-space: nowrap;">
-                <a href="pollingunit.html" th:href="@{/pollingunit/{pollingunitId}(pollingunitId=${pollingunitId})}">
+                <a href="pollingunit.html" th:href="@{/pollingunit/{pollingunitId}(pollingunitId=${pollingUnit.id})}">
                     <span th:text="${pollingUnit.fullCode}"></span>
                 </a>
             </td>
