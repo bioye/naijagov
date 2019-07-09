@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" th:href="@{css/materialize.min.css}"  media="screen,projection"/>
+
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-141725675-1"></script>
+    <script type="text/javascript" th:src="@{/js/googleanalytics.js}"></script>
+	</head>
+    <!--Start of Tawk.to Script-->
+    <script type="text/javascript" th:src="@{/js/tawkto.js}"></script>
+    <!--End of Tawk.to Script-->
+	<body>
+
+	<hr />
+
+	<h4>Ward</h4>
+		
+		<div>
+			<b>Code:</b> <span th:text="${pollingUnit.code}"></span><br />
+			<b>Description:</b> <span th:text="${pollingUnit.description}"></span><br />
+			<b>Longitude:</b> <span th:text="${pollingUnit.longitude}"></span><br />
+			<b>Latitude:</b> <span th:text="${pollingUnit.latitude}"></span><br />
+	<script>
+    </script>
+</body>
+</html>

@@ -1,6 +1,7 @@
 package com.naijagov.naijagov.controller;
 
 import com.naijagov.naijagov.model.Form;
+import com.naijagov.naijagov.model.PollingUnit;
 import com.naijagov.naijagov.service.PollingUnitService;
 import com.naijagov.naijagov.service.WardService;
 
@@ -13,6 +14,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
@@ -47,9 +49,11 @@ public class NaijagovController{
         return mv;
     }
 
-    @GetMapping("/pollingunit")
-	public ModelAndView displayPollingUnit(ModelAndView modelAndView, @RequestParam("id") String id) {
-
+    @GetMapping("/pollingunit/{id}")
+	public ModelAndView displayPollingUnit(@PathVariable Integer id) {
+        Optional<PollingUnit> optionalPu = pollingUnitService.findPollingUnit(id);
+		ModelAndView modelAndView = new ModelAndView();
+        if(optionalPu.isPresent()) modelAndView.addObject(optionalPu.get());
 		modelAndView.setViewName("pollingunit");
 		return modelAndView;		
 	}
