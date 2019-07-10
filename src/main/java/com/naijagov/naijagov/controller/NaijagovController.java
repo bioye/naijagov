@@ -2,6 +2,7 @@ package com.naijagov.naijagov.controller;
 
 import com.naijagov.naijagov.model.Form;
 import com.naijagov.naijagov.model.PollingUnit;
+import com.naijagov.naijagov.model.Ward;
 import com.naijagov.naijagov.service.PollingUnitService;
 import com.naijagov.naijagov.service.WardService;
 
@@ -48,6 +49,15 @@ public class NaijagovController{
         mv.setViewName("wards");
         return mv;
     }
+
+    @GetMapping("/ward/{id}")
+	public ModelAndView displayWard(@PathVariable Integer id) {
+        Optional<Ward> optionalWard = wardService.findWard(id);
+		ModelAndView modelAndView = new ModelAndView();
+        if(optionalWard.isPresent()) modelAndView.addObject(optionalWard.get());
+		modelAndView.setViewName("ward");
+		return modelAndView;		
+	}
 
     @GetMapping("/pollingunit/{id}")
 	public ModelAndView displayPollingUnit(@PathVariable Integer id) {

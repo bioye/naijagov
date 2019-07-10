@@ -30,7 +30,12 @@
         <tr th:each="ward, i: ${form.wardsPage.content}">
             <td th:text="${(form.wardsPage.number*form.wardsPage.size)+i.index+1}"></td>
             <td style="white-space: nowrap;" th:text="${ward.fullCode}"></td>
-            <td th:text="${ward.name}"></td>
+            <td>
+                <a href="ward.html" th:href="@{/ward/{wardId}(wardId=${ward.id})}">
+                    <span th:text="${ward.name}"></span>
+                </a>
+            </td>
+
         </tr>
     </table>
     </div>
