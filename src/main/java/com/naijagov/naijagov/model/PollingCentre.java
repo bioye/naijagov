@@ -2,10 +2,8 @@ package com.naijagov.naijagov.model;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.Table;
 
 @Entity
-//@Table(name="polling_unit")
 public class PollingCentre{
 
     public String getDescription() {
@@ -36,7 +34,7 @@ public class PollingCentre{
 	private int code;
 	private String fullCode;
 	private float longitude;
-    private float latitude;
-    @Id
+  private float latitude;
+  @Id
 	private int id;
 }

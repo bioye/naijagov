@@ -43,8 +43,8 @@ public class PollingUnit implements Serializable{
 	private int code;
 	private String fullCode;
 	private float longitude;
-    private float latitude;
-    @Id
+  private float latitude;
+  @Id
 	private int id;
 
 	private static final long serialVersionUID = 1759791770074149187L;
