@@ -11,19 +11,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-141725675-1"></script>
+  <script type="text/javascript" th:src="@{/js/googleanalytics.js}"></script>
+</head>
+<!--Start of Tawk.to Script-->
+<script type="text/javascript" th:src="@{/js/tawkto.js}"></script>
+<!--End of Tawk.to Script-->
+<!--JavaScript at end of body for optimized loading-->
+<script type="text/javascript" th:src="@{/js/materialize.min.js}"></script>
 
 <body>
   <h2>Polling Units</h2>
   <div id="react">
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-141725675-1"></script>
-    <script type="text/javascript" th:src="@{/js/googleanalytics.js}"></script>
-    </head>
-    <!--Start of Tawk.to Script-->
-    <script type="text/javascript" th:src="@{/js/tawkto.js}"></script>
-    <!--End of Tawk.to Script-->
-    <!--JavaScript at end of body for optimized loading-->
-    <script type="text/javascript" th:src="@{/js/materialize.min.js}"></script>
 
     <!-- Load our React component. -->
     <script th:src="@{/built/bundle.js}"></script>
