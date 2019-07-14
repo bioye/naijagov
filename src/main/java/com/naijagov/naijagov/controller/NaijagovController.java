@@ -21,89 +21,115 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-@SessionAttributes({"form"})
-public class NaijagovController{
+@SessionAttributes({ "form" })
+public class NaijagovController {
 
-    @GetMapping("/wards")
-    public ModelAndView wards(@PageableDefault(size=10, sort="fullCode", 
-                                direction=Sort.Direction.ASC) Pageable pageable, 
-                                @ModelAttribute Form form, ModelAndView mv, 
-                                @RequestParam("sortBy") Optional<String> sortBy, 
-                                @RequestParam("sortDirection") Optional<Sort.Direction> sortDirection){
-        Pageable sortedPage = pageable;
-        //initial page load, no params
-        if(form.getWardsPage()==null){
-            sortedPage=pageable;
-        }
-        //when header sort is clicked
-        else if(sortBy.isPresent() &&sortDirection.isPresent()) 
-            sortedPage = PageRequest.of(form.getWardsPage().getNumber(), 
-                                      form.getWardsPage().getSize(),
-                                      sortDirection.get(), sortBy.get());
-        //when navigation link is clicked
-        else if(form.getWardsPage()!=null) 
-            sortedPage = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), 
-                                        form.getWardsPage().getSort());
-        form.setWardsPage(wardService.listAllWards(sortedPage));
-
-        mv.setViewName("wards");
-        return mv;
+  @GetMapping("/wards")
+  public ModelAndView wards(
+      @PageableDefault(size = 10, sort = "fullCode", direction = Sort.Direction.ASC) Pageable pageable,
+      @ModelAttribute Form form, ModelAndView mv, @RequestParam("sortBy") Optional<String> sortBy,
+      @RequestParam("sortDirection") Optional<Sort.Direction> sortDirection) {
+    Pageable sortedPage = pageable;
+    // initial page load, no params
+    if (form.getWardsPage() == null) {
+      sortedPage = pageable;
     }
+    // when header sort is clicked
+    else if (sortBy.isPresent() && sortDirection.isPresent())
+      sortedPage = PageRequest.of(form.getWardsPage().getNumber(), form.getWardsPage().getSize(), sortDirection.get(),
+          sortBy.get());
+    // when navigation link is clicked
+    else if (form.getWardsPage() != null)
+      sortedPage = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), form.getWardsPage().getSort());
+    form.setWardsPage(wardService.listAllWards(sortedPage));
 
-    @GetMapping("/ward/{id}")
-	public ModelAndView displayWard(@PathVariable Integer id) {
-        Optional<Ward> optionalWard = wardService.findWard(id);
-		ModelAndView modelAndView = new ModelAndView();
-        if(optionalWard.isPresent()) modelAndView.addObject(optionalWard.get());
-		modelAndView.setViewName("ward");
-		return modelAndView;		
-	}
+    mv.setViewName("wards");
+    return mv;
+  }
 
-    @GetMapping("/pollingunit/{id}")
-	public ModelAndView displayPollingUnit(@PathVariable Integer id) {
-        Optional<PollingUnit> optionalPu = pollingUnitService.findPollingUnit(id);
-		ModelAndView modelAndView = new ModelAndView();
-        if(optionalPu.isPresent()) modelAndView.addObject(optionalPu.get());
-		modelAndView.setViewName("pollingunit");
-		return modelAndView;		
-	}
+  @GetMapping("/ward/{id}")
+  public ModelAndView displayWard(@PathVariable Integer id,
+      @PageableDefault(size = 10, sort = "fullCode", direction = Sort.Direction.ASC) Pageable pageable,
+      @ModelAttribute Form form, ModelAndView mv, @RequestParam("sortBy") Optional<String> sortBy,
+      @RequestParam("sortDirection") Optional<Sort.Direction> sortDirection) {
 
-    @GetMapping("/pollingunits")
-    public ModelAndView pollingUnits(@PageableDefault(size=10, sort="fullCode", 
-                                direction=Sort.Direction.ASC) Pageable pageable, 
-                                @ModelAttribute Form form, ModelAndView mv, 
-                                @RequestParam("sortBy") Optional<String> sortBy, 
-                                @RequestParam("sortDirection") Optional<Sort.Direction> sortDirection){
-        Pageable sortedPage = pageable;
-        //initial page load, no params
-        if(form.getPollingUnitsPage()==null){
-            sortedPage=pageable;
-        }
-        //when header sort is clicked
-        else if(sortBy.isPresent() &&sortDirection.isPresent()) 
-            sortedPage = PageRequest.of(form.getPollingUnitsPage().getNumber(), 
-                                      form.getPollingUnitsPage().getSize(),
-                                      sortDirection.get(), sortBy.get());
-        //when navigation link is clicked
-        else if(form.getPollingUnitsPage()!=null) 
-            sortedPage = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), 
-                                        form.getPollingUnitsPage().getSort());
-        form.setPollingUnitsPage(pollingUnitService.listAllPollingUnits(sortedPage));
+    Optional<Ward> optionalWard = wardService.findWard(id);
+    ModelAndView modelAndView = new ModelAndView();
+    Ward wardObject = null;
+    if (optionalWard.isPresent()){
+      //what's the significance of this?
+      wardObject = optionalWard.get();
+      modelAndView.addObject(wardObject);
 
-        mv.setViewName("pollingunits");
-        return mv;
     }
-    
-    @ModelAttribute
-    public Form form() {
-        return new Form();
+    //get pollingUnits for ward
+    Pageable sortedPage = pageable;
+    // initial page load, no params
+    if (form.getWardPage() == null) {
+      sortedPage = pageable;
     }
-    
-    @Autowired
-    public NaijagovController(PollingUnitService pollingUnitService, WardService wardService){
-        this.pollingUnitService=pollingUnitService;
-        this.wardService=wardService;
+    // when header sort is clicked
+    else if (sortBy.isPresent() && sortDirection.isPresent())
+      sortedPage = PageRequest.of(form.getWardPage().getNumber(), form.getWardPage().getSize(),
+          sortDirection.get(), sortBy.get());
+    // when navigation link is clicked
+    else if (form.getWardPage() != null)
+      sortedPage = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(),
+          form.getWardPage().getSort());
+    //form.setWardPage(pollingUnitService.getPollingUnits(sortedPage, wardObject));
+    form.setWardPage(pollingUnitService.getPollingUnits(sortedPage, wardObject.getId()));
+
+
+
+    modelAndView.setViewName("ward");
+    return modelAndView;
+  }
+
+  @GetMapping("/pollingunit/{id}")
+  public ModelAndView displayPollingUnit(@PathVariable Integer id) {
+    Optional<PollingUnit> optionalPu = pollingUnitService.findPollingUnit(id);
+    ModelAndView modelAndView = new ModelAndView();
+    if (optionalPu.isPresent())
+      modelAndView.addObject(optionalPu.get());
+    modelAndView.setViewName("pollingunit");
+    return modelAndView;
+  }
+
+  @GetMapping("/pollingunits")
+  public ModelAndView pollingUnits(
+      @PageableDefault(size = 10, sort = "fullCode", direction = Sort.Direction.ASC) Pageable pageable,
+      @ModelAttribute Form form, ModelAndView mv, @RequestParam("sortBy") Optional<String> sortBy,
+      @RequestParam("sortDirection") Optional<Sort.Direction> sortDirection) {
+    Pageable sortedPage = pageable;
+    // initial page load, no params
+    if (form.getPollingUnitsPage() == null) {
+      sortedPage = pageable;
     }
-    private PollingUnitService pollingUnitService;
-    private WardService wardService;
+    // when header sort is clicked
+    else if (sortBy.isPresent() && sortDirection.isPresent())
+      sortedPage = PageRequest.of(form.getPollingUnitsPage().getNumber(), form.getPollingUnitsPage().getSize(),
+          sortDirection.get(), sortBy.get());
+    // when navigation link is clicked
+    else if (form.getPollingUnitsPage() != null)
+      sortedPage = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(),
+          form.getPollingUnitsPage().getSort());
+    form.setPollingUnitsPage(pollingUnitService.listAllPollingUnits(sortedPage));
+
+    mv.setViewName("pollingunits");
+    return mv;
+  }
+
+  @ModelAttribute
+  public Form form() {
+    return new Form();
+  }
+
+  @Autowired
+  public NaijagovController(PollingUnitService pollingUnitService, WardService wardService) {
+    this.pollingUnitService = pollingUnitService;
+    this.wardService = wardService;
+  }
+
+  private PollingUnitService pollingUnitService;
+  private WardService wardService;
 }

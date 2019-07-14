@@ -4,6 +4,10 @@ import org.springframework.data.domain.Page;
 
 public class Form {
 
+  public Page<PollingUnit> getWardPage() {
+      return wardPage;
+  }
+
     public Page<Ward> getWardsPage() {
         return wardsPage;
     }
@@ -18,6 +22,10 @@ public class Form {
 
     public Iterable<PollingUnit> getPollingUnits() {
         return pollingUnits;
+    }
+
+    public void setWardPage(Page<PollingUnit> wardPage) {
+        this.wardPage = wardPage;
     }
 
     public void setWardsPage(Page<Ward> wardsPage) {
@@ -37,6 +45,7 @@ public class Form {
     }
 
     private Page<Ward> wardsPage;
+    private Page<PollingUnit> wardPage;
     private Iterable<Ward> wards;
     private Page<PollingUnit> pollingUnitsPage;
     private Iterable<PollingUnit> pollingUnits;
