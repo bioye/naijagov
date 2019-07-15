@@ -1,59 +1,73 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
 <head>
-    <!--Import Google Icon Font-->
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <!--Import materialize.css-->
-    <link type="text/css" rel="stylesheet" th:href="@{css/materialize.min.css}"  media="screen,projection"/>
+  <!--Import Google Icon Font-->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+  <!--Import materialize.css-->
+  <link type="text/css" rel="stylesheet" th:href="@{css/materialize.min.css}" media="screen,projection" />
 
-    <!--Let browser know website is optimized for mobile-->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        
-    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-141725675-1"></script>
-    <script type="text/javascript" th:src="@{/js/googleanalytics.js}"></script>
-	</head>
-    <!--Start of Tawk.to Script-->
-    <script type="text/javascript" th:src="@{/js/tawkto.js}"></script>
-    <!--End of Tawk.to Script-->
-	<body>
-    <h2>Polling Units</h2>
-    <div>
+  <!--Let browser know website is optimized for mobile-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-141725675-1"></script>
+  <script type="text/javascript" th:src="@{/js/googleanalytics.js}"></script>
+</head>
+<!--Start of Tawk.to Script-->
+<script type="text/javascript" th:src="@{/js/tawkto.js}"></script>
+<!--End of Tawk.to Script-->
+
+<body>
+  <h2>Polling Units</h2>
+  <div>
     <table class="striped responsive-table">
-        <tr>
-            <th>#</th>
-            <th><a th:href="@{?sortBy=fullCode&sortDirection=ASC}">Code</th>
-            <th><a th:href="@{?sortBy=description&sortDirection=ASC}">Description</th>
-            <th><a th:href="@{?sortBy=longitude&sortDirection=ASC}">Longitude</th>
-            <th><a th:href="@{?sortBy=latitude&sortDirection=ASC}">Latitude</th>
-        </tr>
-        <tr th:each="pollingUnit, i: ${form.pollingUnitsPage.content}">
-            <td th:text="${(form.pollingUnitsPage.number*form.pollingUnitsPage.size)+i.index+1}"></td>
-            <td style="white-space: nowrap;" th:text="${pollingUnit.fullCode}"></td>
-            <td th:text="${pollingUnit.description}"></td>
-            <td style="white-space: nowrap;" th:text="${pollingUnit.longitude}"></td>
-            <td style="white-space: nowrap;" th:text="${pollingUnit.latitude}"></td>
-        </tr>
+      <tr>
+        <th>#</th>
+        <th><a th:href="@{?sortBy=fullCode&sortDirection=ASC}">Code</a></th>
+        <th><a th:href="@{?sortBy=description&sortDirection=ASC}">Description</a></th>
+        <th><a th:href="@{?sortBy=longitude&sortDirection=ASC}">Longitude</a></th>
+        <th><a th:href="@{?sortBy=latitude&sortDirection=ASC}">Latitude</a></th>
+      </tr>
+      <tr th:each="pollingUnit, i: ${form.pollingUnitsPage.content}">
+        <td th:text="${(form.pollingUnitsPage.number*form.pollingUnitsPage.size)+i.index+1}"></td>
+        <td style="white-space: nowrap;">
+          <a href="pollingunit.html" th:href="@{/pollingunit/{pollingunitId}(pollingunitId=${pollingUnit.id})}">
+            <span th:text="${pollingUnit.fullCode}"></span>
+          </a>
+        </td>
+        <td th:text="${pollingUnit.description}"></td>
+        <td style="white-space: nowrap;" th:text="${pollingUnit.longitude}"></td>
+        <td style="white-space: nowrap;" th:text="${pollingUnit.latitude}"></td>
+      </tr>
     </table>
-    </div>
+  </div>
 
-    <div class="pagination-div">
-        <a th:href="@{/pollingunitsthyme(page=0,size=${form.pollingUnitsPage.size})}">First</a>
-        <span th:if="${form.pollingUnitsPage.hasPrevious()}">
-            <a th:href="@{/pollingunitsthyme(page=${form.pollingUnitsPage.number-1},size=${form.pollingUnitsPage.size})}">Previous</a>
-        </span>
-        Page<span th:text="${form.pollingUnitsPage.number+1}"></span> of <span th:text="${form.pollingUnitsPage.totalPages}"></span>
-        <span th:if="${form.pollingUnitsPage.hasNext()}">
-            <a th:href="@{/pollingunitsthyme(page=${form.pollingUnitsPage.number+1},size=${form.pollingUnitsPage.size})}">Next</a>
-        </span>
-        <a th:href="@{/pollingunitsthyme(page=${form.pollingUnitsPage.totalPages-1},size=${form.pollingUnitsPage.size})}">Last</a>
-    </div>
+  <div class="pagination-div">
+    <a th:href="@{/pollingunitsthyme(page=0,size=${form.pollingUnitsPage.size})}">First</a>
+    <span th:if="${form.pollingUnitsPage.hasPrevious()}">
+      <a th:href="@{/pollingunitsthyme(page=${form.pollingUnitsPage.number-1},size=${form.pollingUnitsPage.size})}">
+        Previous
+      </a>
+    </span>
+    Page
+    <span th:text="${form.pollingUnitsPage.number+1}"></span>
+    of
+    <span th:text="${form.pollingUnitsPage.totalPages}"></span>
+    <span th:if="${form.pollingUnitsPage.hasNext()}">
+      <a th:href="@{/pollingunitsthyme(page=${form.pollingUnitsPage.number+1},size=${form.pollingUnitsPage.size})}">
+        Next
+      </a>
+    </span>
+    <a th:href="@{/pollingunitsthyme(page=${form.pollingUnitsPage.totalPages-1},size=${form.pollingUnitsPage.size})}">
+      Last
+    </a>
+  </div>
 
-    <!--JavaScript at end of body for optimized loading-->
-    <script type="text/javascript" th:src="@{/js/materialize.min.js}"></script>
+  <!--JavaScript at end of body for optimized loading-->
+  <script type="text/javascript" th:src="@{/js/materialize.min.js}"></script>
 
-    </body>
-    </html>
-    
+</body>
+
+</html>
