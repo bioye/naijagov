@@ -1,40 +1,52 @@
 package com.naijagov.naijagov.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity
-public class PollingUnit {
+public class PollingUnit implements Serializable {
 
-    public String getDescription() {
-        return description;
-    }
+  public Ward getWard() {
+    return ward;
+  }
 
-    public int getCode() {
-        return code;
-    }
+  public String getDescription() {
+    return description;
+  }
 
-    public String getFullCode() {
-        return fullCode;
-    }
+  public int getCode() {
+    return code;
+  }
 
-    public float getLongitude() {
-        return longitude;
-    }
+  public String getFullCode() {
+    return fullCode;
+  }
 
-    public float getLatitude() {
-        return latitude;
-    }
+  public float getLongitude() {
+    return longitude;
+  }
 
-    public int getId() {
-        return id;
-    }
+  public float getLatitude() {
+    return latitude;
+  }
 
-	private String description;
-	private int code;
-	private String fullCode;
-	private float longitude;
-    private float latitude;
-    @Id
-	private int id;
+  public int getId() {
+    return id;
+  }
+
+  @ManyToOne
+  private Ward ward;
+  private String description;
+  private int code;
+  private String fullCode;
+  private float longitude;
+  private float latitude;
+  @Id
+  private int id;
+
+  private static final long serialVersionUID = 1759791770074149187L;
+
 }
