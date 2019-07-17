@@ -30,7 +30,6 @@
     <b>Name:</b> <span th:text="${ward.name}"></span><br />
   </div>
 
-  
   <h2>Polling Units</h2>
   <div>
     <table class="striped responsive-table">
@@ -56,7 +55,7 @@
   </div>
 
   <div class="pagination-div">
-    <a th:href="@{/ward(page=0,size=${form.wardPage.size})}">First</a>
+    <a th:href="@{/ward/{wardId}(wardId=${ward.id})(page=0,size=${form.wardPage.size})}">First</a>
     <span th:if="${form.wardPage.hasPrevious()}">
       <a th:href="@{/ward(page=${form.wardPage.number-1},size=${form.wardPage.size})}">
         Previous
