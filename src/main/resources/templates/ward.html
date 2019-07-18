@@ -55,9 +55,9 @@
   </div>
 
   <div class="pagination-div">
-    <a th:href="@{/ward/{wardId}(wardId=${ward.id})(page=0,size=${form.wardPage.size})}">First</a>
+    <a th:href="@{/ward/{wardId}(wardId=${ward.id},page=0,size=${form.wardPage.size})}">First</a>
     <span th:if="${form.wardPage.hasPrevious()}">
-      <a th:href="@{/ward(page=${form.wardPage.number-1},size=${form.wardPage.size})}">
+      <a th:href="@{/ward/{wardId}(wardId=${ward.id},page=${form.wardPage.number-1},size=${form.wardPage.size})}">
         Previous
       </a>
     </span>
@@ -66,11 +66,11 @@
     of
     <span th:text="${form.wardPage.totalPages}"></span>
     <span th:if="${form.wardPage.hasNext()}">
-      <a th:href="@{/ward(page=${form.wardPage.number+1},size=${form.wardPage.size})}">
+      <a th:href="@{/ward/{wardId}(wardId=${ward.id},page=${form.wardPage.number+1},size=${form.wardPage.size})}">
         Next
       </a>
     </span>
-    <a th:href="@{/ward(page=${form.wardPage.totalPages-1},size=${form.wardPage.size})}">
+    <a th:href="@{/ward/{wardId}(wardId=${ward.id},page=${form.wardPage.totalPages-1},size=${form.wardPage.size})}">
       Last
     </a>
   </div>
