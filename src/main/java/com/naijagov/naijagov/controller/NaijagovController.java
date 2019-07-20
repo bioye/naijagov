@@ -24,6 +24,9 @@ import org.springframework.web.servlet.ModelAndView;
 @SessionAttributes({ "form" })
 public class NaijagovController {
 
+  private PollingUnitService pollingUnitService;
+  private WardService wardService;
+
   @GetMapping("/wards")
   public ModelAndView wards(
       @PageableDefault(size = 10, sort = "fullCode", direction = Sort.Direction.ASC) Pageable pageable,
@@ -129,7 +132,4 @@ public class NaijagovController {
     this.pollingUnitService = pollingUnitService;
     this.wardService = wardService;
   }
-
-  private PollingUnitService pollingUnitService;
-  private WardService wardService;
 }
