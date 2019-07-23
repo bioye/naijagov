@@ -42,14 +42,14 @@
       </tr>
       <tr th:each="pollingUnit, i: ${form.wardPage.content}">
         <td th:text="${(form.wardPage.number*form.wardPage.size)+i.index+1}"></td>
-        <td style="white-space: nowrap;">
+        <td class="whitespace">
           <a href="pollingunit.html" th:href="@{/pollingunit/{pollingunitId}(pollingunitId=${pollingUnit.id})}">
             <span th:text="${pollingUnit.fullCode}"></span>
           </a>
         </td>
         <td th:text="${pollingUnit.description}"></td>
-        <td style="white-space: nowrap;" th:text="${pollingUnit.longitude}"></td>
-        <td style="white-space: nowrap;" th:text="${pollingUnit.latitude}"></td>
+        <td class="whitespace" th:text="${pollingUnit.longitude}"></td>
+        <td class="whitespace" th:text="${pollingUnit.latitude}"></td>
       </tr>
     </table>
   </div>
