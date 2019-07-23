@@ -38,12 +38,14 @@ public class NaijagovController {
       sortedPage = pageable;
     }
     // when header sort is clicked
-    else if (sortBy.isPresent() && sortDirection.isPresent())
+    else if (sortBy.isPresent() && sortDirection.isPresent()) {
       sortedPage = PageRequest.of(form.getWardsPage().getNumber(), form.getWardsPage().getSize(), sortDirection.get(),
           sortBy.get());
+    }
     // when navigation link is clicked
-    else if (form.getWardsPage() != null)
+    else if (form.getWardsPage() != null) {
       sortedPage = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), form.getWardsPage().getSort());
+    }
     form.setWardsPage(wardService.listAllWards(sortedPage));
 
     mv.setViewName("wards");
@@ -59,13 +61,13 @@ public class NaijagovController {
     Optional<Ward> optionalWard = wardService.findWard(id);
     ModelAndView modelAndView = new ModelAndView();
     Ward wardObject = null;
-    if (optionalWard.isPresent()){
-      //what's the significance of this?
+    if (optionalWard.isPresent()) {
+      // what's the significance of this?
       wardObject = optionalWard.get();
       modelAndView.addObject(wardObject);
 
     }
-    //get pollingUnits for ward
+    // get pollingUnits for ward
     Pageable sortedPage = pageable;
     // initial page load, no params
     if (form.getWardPage() == null) {
@@ -73,16 +75,13 @@ public class NaijagovController {
     }
     // when header sort is clicked
     else if (sortBy.isPresent() && sortDirection.isPresent())
-      sortedPage = PageRequest.of(form.getWardPage().getNumber(), form.getWardPage().getSize(),
-          sortDirection.get(), sortBy.get());
+      sortedPage = PageRequest.of(form.getWardPage().getNumber(), form.getWardPage().getSize(), sortDirection.get(),
+          sortBy.get());
     // when navigation link is clicked
     else if (form.getWardPage() != null)
-      sortedPage = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(),
-          form.getWardPage().getSort());
-    //form.setWardPage(pollingUnitService.getPollingUnits(sortedPage, wardObject));
+      sortedPage = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), form.getWardPage().getSort());
+    // form.setWardPage(pollingUnitService.getPollingUnits(sortedPage, wardObject));
     form.setWardPage(pollingUnitService.getPollingUnits(sortedPage, wardObject.getId()));
-
-
 
     modelAndView.setViewName("ward");
     return modelAndView;
@@ -109,13 +108,15 @@ public class NaijagovController {
       sortedPage = pageable;
     }
     // when header sort is clicked
-    else if (sortBy.isPresent() && sortDirection.isPresent())
+    else if (sortBy.isPresent() && sortDirection.isPresent()){
       sortedPage = PageRequest.of(form.getPollingUnitsPage().getNumber(), form.getPollingUnitsPage().getSize(),
           sortDirection.get(), sortBy.get());
+    }
     // when navigation link is clicked
-    else if (form.getPollingUnitsPage() != null)
+    else if (form.getPollingUnitsPage() != null){
       sortedPage = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(),
           form.getPollingUnitsPage().getSort());
+    }
     form.setPollingUnitsPage(pollingUnitService.listAllPollingUnits(sortedPage));
 
     mv.setViewName("pollingunits");

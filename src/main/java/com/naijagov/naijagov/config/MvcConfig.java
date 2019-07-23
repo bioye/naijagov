@@ -7,7 +7,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class MvcConfig implements WebMvcConfigurer{
     
     public void addViewControllers(ViewControllerRegistry registry){
-        registry.addViewController("/pollingunitsreact").setViewName("pollingunitsreact");
-        registry.addViewController("/pollingunitsmaterial").setViewName("pollingunitsmaterial");
+        registry.addViewController("/pollingunits-react").setViewName("pollingunits-react");
+        registry.addViewController("/pollingunits-material").setViewName("pollingunits-material");
     }
 }
