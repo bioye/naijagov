@@ -39,8 +39,7 @@ public class NaijagovController {
     }
     // when header sort is clicked
     else if (sortBy.isPresent() && sortDirection.isPresent()) {
-      sortedPage = PageRequest.of(form.getWardsPage().getNumber(), form.getWardsPage().getSize(), sortDirection.get(),
-          sortBy.get());
+      sortedPage = PageRequest.of(form.getWardsPage().getNumber(), form.getWardsPage().getSize(), sortDirection.get(), sortBy.get());
     }
     // when navigation link is clicked
     else if (form.getWardsPage() != null) {
@@ -74,13 +73,13 @@ public class NaijagovController {
       sortedPage = pageable;
     }
     // when header sort is clicked
-    else if (sortBy.isPresent() && sortDirection.isPresent())
-      sortedPage = PageRequest.of(form.getWardPage().getNumber(), form.getWardPage().getSize(), sortDirection.get(),
-          sortBy.get());
+    else if (sortBy.isPresent() && sortDirection.isPresent()){
+      sortedPage = PageRequest.of(form.getWardPage().getNumber(), form.getWardPage().getSize(), sortDirection.get(), sortBy.get());
+    }
     // when navigation link is clicked
-    else if (form.getWardPage() != null)
+    else if (form.getWardPage() != null){
       sortedPage = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), form.getWardPage().getSort());
-    // form.setWardPage(pollingUnitService.getPollingUnits(sortedPage, wardObject));
+    }
     form.setWardPage(pollingUnitService.getPollingUnits(sortedPage, wardObject.getId()));
 
     modelAndView.setViewName("ward");
@@ -91,8 +90,9 @@ public class NaijagovController {
   public ModelAndView displayPollingUnit(@PathVariable Integer id) {
     Optional<PollingUnit> optionalPu = pollingUnitService.findPollingUnit(id);
     ModelAndView modelAndView = new ModelAndView();
-    if (optionalPu.isPresent())
+    if (optionalPu.isPresent()){
       modelAndView.addObject(optionalPu.get());
+    }
     modelAndView.setViewName("pollingunit");
     return modelAndView;
   }
@@ -109,13 +109,11 @@ public class NaijagovController {
     }
     // when header sort is clicked
     else if (sortBy.isPresent() && sortDirection.isPresent()){
-      sortedPage = PageRequest.of(form.getPollingUnitsPage().getNumber(), form.getPollingUnitsPage().getSize(),
-          sortDirection.get(), sortBy.get());
+      sortedPage = PageRequest.of(form.getPollingUnitsPage().getNumber(), form.getPollingUnitsPage().getSize(), sortDirection.get(), sortBy.get());
     }
     // when navigation link is clicked
     else if (form.getPollingUnitsPage() != null){
-      sortedPage = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(),
-          form.getPollingUnitsPage().getSort());
+      sortedPage = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), form.getPollingUnitsPage().getSort());
     }
     form.setPollingUnitsPage(pollingUnitService.listAllPollingUnits(sortedPage));
 
