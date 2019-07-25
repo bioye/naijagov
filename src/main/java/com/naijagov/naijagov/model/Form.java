@@ -4,40 +4,49 @@ import org.springframework.data.domain.Page;
 
 public class Form {
 
-    public Page<Ward> getWardsPage() {
-        return wardsPage;
-    }
+  private Page<Ward> wardsPage;
+  private Page<PollingUnit> wardPage;
+  private Iterable<Ward> wards;
+  private Page<PollingUnit> pollingUnitsPage;
+  private Iterable<PollingUnit> pollingUnits;
 
-    public Page<PollingUnit> getPollingUnitsPage() {
-        return pollingUnitsPage;
-    }
+  public Page<PollingUnit> getWardPage() {
+    return wardPage;
+  }
 
-    public Iterable<Ward> getWards() {
-        return wards;
-    }
+  public Page<Ward> getWardsPage() {
+    return wardsPage;
+  }
 
-    public Iterable<PollingUnit> getPollingUnits() {
-        return pollingUnits;
-    }
+  public Page<PollingUnit> getPollingUnitsPage() {
+    return pollingUnitsPage;
+  }
 
-    public void setWardsPage(Page<Ward> wardsPage) {
-        this.wardsPage = wardsPage;
-    }
+  public Iterable<Ward> getWards() {
+    return wards;
+  }
 
-    public void setPollingUnitsPage(Page<PollingUnit> pollingUnitPage) {
-        this.pollingUnitsPage = pollingUnitPage;
-    }
+  public Iterable<PollingUnit> getPollingUnits() {
+    return pollingUnits;
+  }
 
-    public void setWards(Iterable<Ward> wards) {
-        this.wards = wards;
-    }
+  public void setWardPage(Page<PollingUnit> wardPage) {
+    this.wardPage = wardPage;
+  }
 
-    public void setPollingUnits(Iterable<PollingUnit> pollingUnits) {
-        this.pollingUnits = pollingUnits;
-    }
+  public void setWardsPage(Page<Ward> wardsPage) {
+    this.wardsPage = wardsPage;
+  }
 
-    private Page<Ward> wardsPage;
-    private Iterable<Ward> wards;
-    private Page<PollingUnit> pollingUnitsPage;
-    private Iterable<PollingUnit> pollingUnits;
+  public void setPollingUnitsPage(Page<PollingUnit> pollingUnitPage) {
+    this.pollingUnitsPage = pollingUnitPage;
+  }
+
+  public void setWards(Iterable<Ward> wards) {
+    this.wards = wards;
+  }
+
+  public void setPollingUnits(Iterable<PollingUnit> pollingUnits) {
+    this.pollingUnits = pollingUnits;
+  }
 }

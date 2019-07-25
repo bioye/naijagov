@@ -7,6 +7,12 @@ import javax.persistence.Id;
 
 @Entity
 public class Ward implements Serializable{
+	private String name;
+	private String fullCode;
+	private int code;	
+	@Id
+	private int id;
+	private static final long serialVersionUID = -6033332532455086865L;
 
 	public String getFullCode() {
 		return fullCode;
@@ -21,10 +27,4 @@ public class Ward implements Serializable{
 	public int getCode() {
 		return code;
 	}
-	private String name;
-	private String fullCode;
-	private int code;	
-	@Id
-	private int id;
-	private static final long serialVersionUID = -6033332532455086865L;
 }
