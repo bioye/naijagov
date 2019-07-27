@@ -9,44 +9,44 @@ import javax.persistence.ManyToOne;
 @Entity
 public class PollingUnit implements Serializable {
 
-  public Ward getWard() {
-    return ward;
-  }
+    @ManyToOne
+    private Ward ward;
+    private String description;
+    private int code;
+    private String fullCode;
+    private float longitude;
+    private float latitude;
+    @Id
+    private int id;
 
-  public String getDescription() {
-    return description;
-  }
+    private static final long serialVersionUID = 1759791770074149187L;
 
-  public int getCode() {
-    return code;
-  }
+    public Ward getWard() {
+        return ward;
+    }
 
-  public String getFullCode() {
-    return fullCode;
-  }
+    public String getDescription() {
+        return description;
+    }
 
-  public float getLongitude() {
-    return longitude;
-  }
+    public int getCode() {
+        return code;
+    }
 
-  public float getLatitude() {
-    return latitude;
-  }
+    public String getFullCode() {
+        return fullCode;
+    }
 
-  public int getId() {
-    return id;
-  }
+    public float getLongitude() {
+        return longitude;
+    }
 
-  @ManyToOne
-  private Ward ward;
-  private String description;
-  private int code;
-  private String fullCode;
-  private float longitude;
-  private float latitude;
-  @Id
-  private int id;
+    public float getLatitude() {
+        return latitude;
+    }
 
-  private static final long serialVersionUID = 1759791770074149187L;
+    public int getId() {
+        return id;
+    }
 
 }
