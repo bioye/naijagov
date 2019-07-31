@@ -3,6 +3,7 @@ package com.naijagov.naijagov.controller;
 import com.naijagov.naijagov.model.Form;
 import com.naijagov.naijagov.model.PollingUnit;
 import com.naijagov.naijagov.model.Ward;
+import com.naijagov.naijagov.service.LocalGovService;
 import com.naijagov.naijagov.service.PollingUnitService;
 import com.naijagov.naijagov.service.WardService;
 
@@ -26,6 +27,22 @@ public class NaijagovController {
 
   private PollingUnitService pollingUnitService;
   private WardService wardService;
+  private LocalGovService localGovService;
+
+  @GetMapping("/localgovs")
+  public ModelAndView localGovs(
+    @PageableDefault(size = 10, sort = "fullCode", direction = Sort.Direction.ASC) Pageable pageable,
+    @ModelAttribute Form form, ModelAndView mv, @RequestParam("sortBy") Optional<String> sortBy,
+    @RequestParam("sortDirection") Optional<Sort.Direction> sortDirection) {
+      Pageable sortedPage = pageable;
+      // initial page load, no params
+      if (form.getLocalGovsPage() == null) {
+        sortedPage = pageable;
+      }
+
+
+    return null;
+  }
 
   @GetMapping("/wards")
   public ModelAndView wards(
