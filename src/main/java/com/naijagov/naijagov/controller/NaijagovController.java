@@ -39,9 +39,18 @@ public class NaijagovController {
       if (form.getLocalGovsPage() == null) {
         sortedPage = pageable;
       }
-
-
-    return null;
+      // when header sort is clicked
+      else if (sortBy.isPresent() && sortDirection.isPresent()) {
+        sortedPage = PageRequest.of(form.getLocalGovsPage().getNumber(), form.getLocalGovsPage().getSize(), sortDirection.get(), sortBy.get());
+      }
+      // when navigation link is clicked
+      else if (form.getLocalGovsPage() != null) {
+        sortedPage = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), form.getLocalGovsPage().getSort());
+      }
+      form.setLocalGovsPage(localGovService.listAllLocalGovs(sortedPage));
+  
+      mv.setViewName("localgovs");
+      return mv;
   }
 
   @GetMapping("/wards")
