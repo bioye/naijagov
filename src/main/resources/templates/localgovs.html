@@ -43,8 +43,8 @@
 
   <div class="pagination-div">
     <a th:href="@{/localgovs(page=0,size=${form.localgovs.Page.size})}">First</a>
-    <span th:if="${form.localgovssPage.hasPrevious()}">
-      <a th:href="@{/localgovs(page=${form.localgovsPage.number-1},size=${form.localgovssPage.size})}">Previous</a>
+    <span th:if="${form.localgovsPage.hasPrevious()}">
+      <a th:href="@{/localgovs(page=${form.localgovsPage.number-1},size=${form.localgovsPage.size})}">Previous</a>
     </span>
     Page<span th:text="${form.localgovsPage.number+1}"></span> of <span th:text="${form.localgovsPage.totalPages}"></span>
     <span th:if="${form.wlocalgovsPagesPage.hasNext()}">
