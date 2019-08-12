@@ -29,7 +29,12 @@ public class NaijagovController {
   private WardService wardService;
   private LocalGovService localGovService;
 
-  @GetMapping("/localgovs")
+  @GetMapping("/localgovs/{id}")
+  public ModelAndView displayLocalGov(){
+    return null;
+  }
+
+  @GetMapping("/localgov")
   public ModelAndView localGovs(
     @PageableDefault(size = 10, sort = "fullCode", direction = Sort.Direction.ASC) Pageable pageable,
     @ModelAttribute Form form, ModelAndView mv, @RequestParam("sortBy") Optional<String> sortBy,
@@ -153,8 +158,9 @@ public class NaijagovController {
   }
 
   @Autowired
-  public NaijagovController(PollingUnitService pollingUnitService, WardService wardService) {
+  public NaijagovController(PollingUnitService pollingUnitService, WardService wardService, LocalGovService localGovService) {
     this.pollingUnitService = pollingUnitService;
     this.wardService = wardService;
+    this.localGovService = localGovService;
   }
 }

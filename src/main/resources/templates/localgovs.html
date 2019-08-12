@@ -25,12 +25,12 @@
     <table class="striped responsive-table">
       <tr>
         <th>#</th>
-        <th><a th:href="@{?sortBy=fullCode&sortDirection=ASC}">Code</a></th>
+        <th><a th:href="@{?sortBy=code&sortDirection=ASC}">Code</a></th>
         <th><a th:href="@{?sortBy=name&sortDirection=ASC}">Name</a></th>
       </tr>
       <tr th:each="localgov, i: ${form.localgovsPage.content}">
         <td th:text="${(form.localgovsPage.number*form.localgovsPage.size)+i.index+1}"></td>
-        <td style="white-space: nowrap;" th:text="${localgov.fullCode}"></td>
+        <td style="white-space: nowrap;" th:text="${localgov.code}"></td>
         <td>
           <a href="localgov.html" th:href="@{/localgov/{localgovId}(localgovId=${localgov.id})}">
             <span th:text="${localgov.name}"></span>
