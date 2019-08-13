@@ -111,7 +111,7 @@ public class NaijagovController {
     else if (form.getWardPage() != null){
       sortedPage = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), form.getWardPage().getSort());
     }
-    form.setWardsPage(wardService.listAllWards(pageable));
+    form.setWardPage(pollingUnitService.getPollingUnits(pageable, wardObject));
 
     modelAndView.setViewName("ward");
     return modelAndView;

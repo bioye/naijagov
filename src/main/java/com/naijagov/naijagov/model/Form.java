@@ -53,6 +53,10 @@ public class Form {
     this.wardsPage = wardsPage;
   }
 
+  public void setWardPage(Page<PollingUnit> wardPage) {
+    this.wardPage = wardPage;
+  }
+
   public void setPollingUnitsPage(Page<PollingUnit> pollingUnitPage) {
     this.pollingUnitsPage = pollingUnitPage;
   }
