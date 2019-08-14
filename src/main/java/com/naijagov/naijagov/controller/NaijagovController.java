@@ -30,7 +30,10 @@ public class NaijagovController {
   private LocalGovService localGovService;
 
   @GetMapping("/localgovs/{id}")
-  public ModelAndView displayLocalGov(){
+  public ModelAndView displayLocalGov(
+    @PageableDefault(size = 10, sort = "fullCode", direction = Sort.Direction.ASC) Pageable pageable,
+    @ModelAttribute Form form, ModelAndView mv, @RequestParam("sortBy") Optional<String> sortBy,
+    @RequestParam("sortDirection") Optional<Sort.Direction> sortDirection) {
     return null;
   }
 
