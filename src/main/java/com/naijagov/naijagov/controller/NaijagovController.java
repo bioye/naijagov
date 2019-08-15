@@ -29,17 +29,21 @@ public class NaijagovController {
   private WardService wardService;
   private LocalGovService localGovService;
 
-  @GetMapping("/localgovs/{id}")
-  public ModelAndView displayLocalGov(
-    @PageableDefault(size = 10, sort = "fullCode", direction = Sort.Direction.ASC) Pageable pageable,
-    @ModelAttribute Form form, ModelAndView mv, @RequestParam("sortBy") Optional<String> sortBy,
-    @RequestParam("sortDirection") Optional<Sort.Direction> sortDirection) {
-    return null;
+  @ModelAttribute
+  public Form form() {
+    return new Form();
   }
 
-  @GetMapping("/localgov")
+  @Autowired
+  public NaijagovController(PollingUnitService pollingUnitService, WardService wardService, LocalGovService localGovService) {
+    this.pollingUnitService = pollingUnitService;
+    this.wardService = wardService;
+    this.localGovService = localGovService;
+  }
+
+  @GetMapping("/localgovs")
   public ModelAndView localGovs(
-    @PageableDefault(size = 10, sort = "fullCode", direction = Sort.Direction.ASC) Pageable pageable,
+    @PageableDefault(size = 10, sort = "code", direction = Sort.Direction.ASC) Pageable pageable,
     @ModelAttribute Form form, ModelAndView mv, @RequestParam("sortBy") Optional<String> sortBy,
     @RequestParam("sortDirection") Optional<Sort.Direction> sortDirection) {
       Pageable sortedPage = pageable;
@@ -83,6 +87,38 @@ public class NaijagovController {
 
     mv.setViewName("wards");
     return mv;
+  }
+
+  @GetMapping("/pollingunits")
+  public ModelAndView pollingUnits(
+      @PageableDefault(size = 10, sort = "fullCode", direction = Sort.Direction.ASC) Pageable pageable,
+      @ModelAttribute Form form, ModelAndView mv, @RequestParam("sortBy") Optional<String> sortBy,
+      @RequestParam("sortDirection") Optional<Sort.Direction> sortDirection) {
+    Pageable sortedPage = pageable;
+    // initial page load, no params
+    if (form.getPollingUnitsPage() == null) {
+      sortedPage = pageable;
+    }
+    // when header sort is clicked
+    else if (sortBy.isPresent() && sortDirection.isPresent()){
+      sortedPage = PageRequest.of(form.getPollingUnitsPage().getNumber(), form.getPollingUnitsPage().getSize(), sortDirection.get(), sortBy.get());
+    }
+    // when navigation link is clicked
+    else if (form.getPollingUnitsPage() != null){
+      sortedPage = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), form.getPollingUnitsPage().getSort());
+    }
+    form.setPollingUnitsPage(pollingUnitService.listAllPollingUnits(sortedPage));
+
+    mv.setViewName("pollingunits");
+    return mv;
+  }
+
+  @GetMapping("/localgov/{id}")
+  public ModelAndView displayLocalGov(
+    @PageableDefault(size = 10, sort = "fullCode", direction = Sort.Direction.ASC) Pageable pageable,
+    @ModelAttribute Form form, ModelAndView mv, @RequestParam("sortBy") Optional<String> sortBy,
+    @RequestParam("sortDirection") Optional<Sort.Direction> sortDirection) {
+    return null;
   }
 
   @GetMapping("/ward/{id}")
@@ -129,41 +165,5 @@ public class NaijagovController {
     }
     modelAndView.setViewName("pollingunit");
     return modelAndView;
-  }
-
-  @GetMapping("/pollingunits")
-  public ModelAndView pollingUnits(
-      @PageableDefault(size = 10, sort = "fullCode", direction = Sort.Direction.ASC) Pageable pageable,
-      @ModelAttribute Form form, ModelAndView mv, @RequestParam("sortBy") Optional<String> sortBy,
-      @RequestParam("sortDirection") Optional<Sort.Direction> sortDirection) {
-    Pageable sortedPage = pageable;
-    // initial page load, no params
-    if (form.getPollingUnitsPage() == null) {
-      sortedPage = pageable;
-    }
-    // when header sort is clicked
-    else if (sortBy.isPresent() && sortDirection.isPresent()){
-      sortedPage = PageRequest.of(form.getPollingUnitsPage().getNumber(), form.getPollingUnitsPage().getSize(), sortDirection.get(), sortBy.get());
-    }
-    // when navigation link is clicked
-    else if (form.getPollingUnitsPage() != null){
-      sortedPage = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), form.getPollingUnitsPage().getSort());
-    }
-    form.setPollingUnitsPage(pollingUnitService.listAllPollingUnits(sortedPage));
-
-    mv.setViewName("pollingunits");
-    return mv;
-  }
-
-  @ModelAttribute
-  public Form form() {
-    return new Form();
-  }
-
-  @Autowired
-  public NaijagovController(PollingUnitService pollingUnitService, WardService wardService, LocalGovService localGovService) {
-    this.pollingUnitService = pollingUnitService;
-    this.wardService = wardService;
-    this.localGovService = localGovService;
   }
 }

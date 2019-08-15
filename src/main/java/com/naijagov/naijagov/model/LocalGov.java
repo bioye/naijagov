@@ -5,6 +5,11 @@ import javax.persistence.Id;
 
 @Entity
 public class LocalGov {
+  
+	@Id
+	private int id;
+	private String name;
+	private int code;
     
 	public String getName() {
 		return name;
@@ -15,10 +20,5 @@ public class LocalGov {
 	public int getId() {
 		return id;
   }
-  
-	@Id
-	private int id;
-	private String name;
-	private int code;
     
 }
