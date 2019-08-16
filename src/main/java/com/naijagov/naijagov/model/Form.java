@@ -9,6 +9,17 @@ public class Form {
   private Iterable<Ward> wards;
   private Page<PollingUnit> pollingUnitsPage;
   private Iterable<PollingUnit> pollingUnits;
+  private Page<LocalGov> localGovsPage;
+  private Page<Ward> localGovPage;
+  private Iterable<LocalGov> localGovs;
+
+  public Page<Ward> getLocalGovPage(){
+    return localGovPage;
+  }
+
+  public Page<LocalGov> getLocalGovsPage(){
+    return localGovsPage;
+  }
 
   public Page<PollingUnit> getWardPage() {
     return wardPage;
@@ -30,12 +41,20 @@ public class Form {
     return pollingUnits;
   }
 
-  public void setWardPage(Page<PollingUnit> wardPage) {
-    this.wardPage = wardPage;
+  public void setLocalGovPage(Page<Ward> localGovPage) {
+    this.localGovPage = localGovPage;
+  }
+
+  public void setLocalGovsPage(Page<LocalGov> localGovsPage) {
+    this.localGovsPage = localGovsPage;
   }
 
   public void setWardsPage(Page<Ward> wardsPage) {
     this.wardsPage = wardsPage;
+  }
+
+  public void setWardPage(Page<PollingUnit> wardPage) {
+    this.wardPage = wardPage;
   }
 
   public void setPollingUnitsPage(Page<PollingUnit> pollingUnitPage) {

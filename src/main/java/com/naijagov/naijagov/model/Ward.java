@@ -6,25 +6,28 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Entity
-public class Ward implements Serializable{
-	private String name;
-	private String fullCode;
-	private int code;	
-	@Id
-	private int id;
-	private static final long serialVersionUID = -6033332532455086865L;
+public class Ward implements Serializable {
 
-	public String getFullCode() {
-		return fullCode;
-	}
+    private String name;
+    private String fullCode;
+    private int code;
+    @Id
+    private int id;
+    private static final long serialVersionUID = -6033332532455086865L;
 
-	public int getId() {
-		return id;
-	}
-	public String getName() {
-		return name;
-	}
-	public int getCode() {
-		return code;
-	}
+    public String getFullCode() {
+        return fullCode;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getCode() {
+        return code;
+    }
 }
