@@ -9,6 +9,7 @@ import com.naijagov.naijagov.service.WardService;
 
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -39,30 +40,6 @@ public class NaijagovController {
     this.pollingUnitService = pollingUnitService;
     this.wardService = wardService;
     this.localGovService = localGovService;
-  }
-
-  @GetMapping("/localgovs")
-  public ModelAndView localGovs(
-    @PageableDefault(size = 10, sort = "code", direction = Sort.Direction.ASC) Pageable pageable,
-    @ModelAttribute Form form, ModelAndView mv, @RequestParam("sortBy") Optional<String> sortBy,
-    @RequestParam("sortDirection") Optional<Sort.Direction> sortDirection) {
-      Pageable sortedPage = pageable;
-      // initial page load, no params
-      if (form.getLocalGovsPage() == null) {
-        sortedPage = pageable;
-      }
-      // when header sort is clicked
-      else if (sortBy.isPresent() && sortDirection.isPresent()) {
-        sortedPage = PageRequest.of(form.getLocalGovsPage().getNumber(), form.getLocalGovsPage().getSize(), sortDirection.get(), sortBy.get());
-      }
-      // when navigation link is clicked
-      else if (form.getLocalGovsPage() != null) {
-        sortedPage = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), form.getLocalGovsPage().getSort());
-      }
-      form.setLocalGovsPage(localGovService.listAllLocalGovs(sortedPage));
-  
-      mv.setViewName("localgovs");
-      return mv;
   }
 
   @GetMapping("/wards")
@@ -111,6 +88,39 @@ public class NaijagovController {
 
     mv.setViewName("pollingunits");
     return mv;
+  }
+
+  @GetMapping("/localgovs")
+  public ModelAndView localGovs(
+    @PageableDefault(size = 10, sort = "code", direction = Sort.Direction.ASC) Pageable pageable,
+    @ModelAttribute Form form, ModelAndView mv, @RequestParam("sortBy") Optional<String> sortBy,
+    @RequestParam("sortDirection") Optional<Sort.Direction> sortDirection) {
+
+      Pageable sortedPage = locations(form.getLocalGovsPage(), pageable, sortBy, sortDirection);
+      form.setLocalGovsPage(localGovService.listAllLocalGovs(sortedPage));
+      mv.setViewName("localgovs");
+      return mv;
+  }
+
+  public Pageable locations(
+      Page<?> page, 
+      Pageable pageable,Optional<String> sortBy,
+      Optional<Sort.Direction> sortDirection) {
+        
+    Pageable sortedPage = pageable;
+    // initial page load, no params
+    if (page == null) {
+      sortedPage = pageable;
+    }
+    // when header sort is clicked
+    else if (sortBy.isPresent() && sortDirection.isPresent()){
+      sortedPage = PageRequest.of(page.getNumber(), page.getSize(), sortDirection.get(), sortBy.get());
+    }
+    // when navigation link is clicked
+    else if (page != null){
+      sortedPage = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), page.getSort());
+    }
+    return sortedPage;
   }
 
   @GetMapping("/localgov/{id}")
