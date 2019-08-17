@@ -12,19 +12,18 @@ import org.springframework.stereotype.Service;
 
 @Service("wardService")
 public class WardService {
+  private WardRepository wardRepository;
 
-  public Optional<Ward> findWard(int id){
-      return wardRepository.findById(id);
+  public Optional<Ward> findWard(int id) {
+    return wardRepository.findById(id);
   }
 
   public Page<Ward> listAllWards(Pageable page) {
-      return wardRepository.findAll(page);
-  } 
+    return wardRepository.findAll(page);
+  }
 
   @Autowired
-  public WardService(WardRepository wardRepository){
-      this.wardRepository=wardRepository;
+  public WardService(WardRepository wardRepository) {
+    this.wardRepository = wardRepository;
   }
-  private WardRepository wardRepository;
-
 }
