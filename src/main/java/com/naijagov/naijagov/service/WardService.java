@@ -2,6 +2,7 @@ package com.naijagov.naijagov.service;
 
 import java.util.Optional;
 
+import com.naijagov.naijagov.model.LocalGov;
 import com.naijagov.naijagov.model.Ward;
 import com.naijagov.naijagov.repository.WardRepository;
 
@@ -13,6 +14,10 @@ import org.springframework.stereotype.Service;
 @Service("wardService")
 public class WardService {
   private WardRepository wardRepository;
+
+  public Page<Ward> getWards(Pageable page, LocalGov localGov){
+    return wardRepository.findByLocalGov(page, localGov);
+  }
 
   public Optional<Ward> findWard(int id) {
     return wardRepository.findById(id);

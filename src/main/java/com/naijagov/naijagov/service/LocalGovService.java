@@ -18,6 +18,10 @@ public class LocalGovService{
     return localGovRepository.findById(id);
   }
 
+  public Page<LocalGov> listAllLocalGovs(Pageable page, LocalGov localGov){
+    return localGovRepository.findAll(page);
+  }
+
   public Page<LocalGov> listAllLocalGovs(Pageable page) {
     return localGovRepository.findAll(page);
   }
