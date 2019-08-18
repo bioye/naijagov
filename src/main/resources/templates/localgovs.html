@@ -32,7 +32,7 @@
         <td th:text="${(form.localGovsPage.number*form.localGovsPage.size)+i.index+1}"></td>
         <td style="white-space: nowrap;" th:text="${localgov.code}"></td>
         <td>
-          <a href="localgovs.html" th:href="@{/localgovs/{localgovId}(localgovId=${localgov.id})}">
+          <a href="localgov.html" th:href="@{/localgov/{localgovId}(localgovId=${localgov.id})}">
             <span th:text="${localgov.name}"></span>
           </a>
         </td>

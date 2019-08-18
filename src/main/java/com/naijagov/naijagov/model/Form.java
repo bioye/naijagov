@@ -4,14 +4,14 @@ import org.springframework.data.domain.Page;
 
 public class Form {
 
+  private Page<LocalGov> localGovsPage;
+  private Iterable<LocalGov> localGovs;//
+  private Page<Ward> localGovPage;
   private Page<Ward> wardsPage;
-  private Page<PollingUnit> wardPage;
   private Iterable<Ward> wards;
+  private Page<PollingUnit> wardPage;
   private Page<PollingUnit> pollingUnitsPage;
   private Iterable<PollingUnit> pollingUnits;
-  private Page<LocalGov> localGovsPage;
-  private Page<Ward> localGovPage;
-  private Iterable<LocalGov> localGovs;
 
   public Page<Ward> getLocalGovPage(){
     return localGovPage;
