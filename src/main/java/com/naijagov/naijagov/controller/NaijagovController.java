@@ -42,28 +42,37 @@ public class NaijagovController {
     this.localGovService = localGovService;
   }
 
-  @GetMapping("/wards")
-  public ModelAndView wards(
-      @PageableDefault(size = 10, sort = "fullCode", direction = Sort.Direction.ASC) Pageable pageable,
-      @ModelAttribute Form form, ModelAndView mv, @RequestParam("sortBy") Optional<String> sortBy,
-      @RequestParam("sortDirection") Optional<Sort.Direction> sortDirection) {
+  public Pageable locations(
+      Page<?> page, 
+      Pageable pageable,Optional<String> sortBy,
+      Optional<Sort.Direction> sortDirection) {
+        
     Pageable sortedPage = pageable;
     // initial page load, no params
-    if (form.getWardsPage() == null) {
+    if (page == null) {
       sortedPage = pageable;
     }
     // when header sort is clicked
-    else if (sortBy.isPresent() && sortDirection.isPresent()) {
-      sortedPage = PageRequest.of(form.getWardsPage().getNumber(), form.getWardsPage().getSize(), sortDirection.get(), sortBy.get());
+    else if (sortBy.isPresent() && sortDirection.isPresent()){
+      sortedPage = PageRequest.of(page.getNumber(), page.getSize(), sortDirection.get(), sortBy.get());
     }
     // when navigation link is clicked
-    else if (form.getWardsPage() != null) {
-      sortedPage = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), form.getWardsPage().getSort());
+    else if (page != null){
+      sortedPage = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), page.getSort());
     }
-    form.setWardsPage(wardService.listAllWards(sortedPage));
+    return sortedPage;
+  }
 
-    mv.setViewName("wards");
-    return mv;
+  @GetMapping("/wards")
+  public ModelAndView wards(
+    @PageableDefault(size = 10, sort = "fullCode", direction = Sort.Direction.ASC) Pageable pageable,
+    @ModelAttribute Form form, ModelAndView mv, @RequestParam("sortBy") Optional<String> sortBy,
+    @RequestParam("sortDirection") Optional<Sort.Direction> sortDirection) {
+      
+      Pageable sortedPage = locations(form.getWardsPage(), pageable, sortBy, sortDirection);
+      form.setWardsPage(wardService.listAllWards(sortedPage));
+      mv.setViewName("wards");
+      return mv;
   }
 
   @GetMapping("/pollingunits")
@@ -100,27 +109,6 @@ public class NaijagovController {
       form.setLocalGovsPage(localGovService.listAllLocalGovs(sortedPage));
       mv.setViewName("localgovs");
       return mv;
-  }
-
-  public Pageable locations(
-      Page<?> page, 
-      Pageable pageable,Optional<String> sortBy,
-      Optional<Sort.Direction> sortDirection) {
-        
-    Pageable sortedPage = pageable;
-    // initial page load, no params
-    if (page == null) {
-      sortedPage = pageable;
-    }
-    // when header sort is clicked
-    else if (sortBy.isPresent() && sortDirection.isPresent()){
-      sortedPage = PageRequest.of(page.getNumber(), page.getSize(), sortDirection.get(), sortBy.get());
-    }
-    // when navigation link is clicked
-    else if (page != null){
-      sortedPage = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), page.getSort());
-    }
-    return sortedPage;
   }
 
   @GetMapping("/localgov/{id}")
