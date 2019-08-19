@@ -1,6 +1,7 @@
 package com.naijagov.naijagov.controller;
 
 import com.naijagov.naijagov.model.Form;
+import com.naijagov.naijagov.model.LocalGov;
 import com.naijagov.naijagov.model.PollingUnit;
 import com.naijagov.naijagov.model.Ward;
 import com.naijagov.naijagov.service.LocalGovService;
@@ -124,11 +125,23 @@ public class NaijagovController {
   }
 
   @GetMapping("/localgov/{id}")
-  public ModelAndView displayLocalGov(
-    @PageableDefault(size = 10, sort = "fullCode", direction = Sort.Direction.ASC) Pageable pageable,
+  public ModelAndView displayLocalGov(@PathVariable Integer id,
+    @PageableDefault(size = 10, sort = "code", direction = Sort.Direction.ASC) Pageable pageable,
     @ModelAttribute Form form, ModelAndView mv, @RequestParam("sortBy") Optional<String> sortBy,
     @RequestParam("sortDirection") Optional<Sort.Direction> sortDirection) {
-    return null;
+
+    Optional<LocalGov> optionalLocalGov = localGovService.findLocalGov(id);
+    ModelAndView modelAndView = new ModelAndView();
+    LocalGov localGovObject = null;
+    if(optionalLocalGov.isPresent()){
+      localGovObject = optionalLocalGov.get();
+      modelAndView.addObject(localGovObject);
+    }
+    Pageable sortedPage = locations(form.getLocalGovPage(), pageable, sortBy, sortDirection);
+    form.setLocalGovPage(wardService.getWards(sortedPage, localGovObject));
+
+    modelAndView.setViewName("localgov");
+    return modelAndView;
   }
 
   @GetMapping("/ward/{id}")
@@ -160,7 +173,7 @@ public class NaijagovController {
     else if (form.getWardPage() != null){
       sortedPage = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), form.getWardPage().getSort());
     }
-    form.setWardPage(pollingUnitService.getPollingUnits(pageable, wardObject));
+    form.setWardPage(pollingUnitService.getPollingUnits(sortedPage, wardObject));
 
     modelAndView.setViewName("ward");
     return modelAndView;
