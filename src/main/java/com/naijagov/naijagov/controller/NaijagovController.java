@@ -113,9 +113,10 @@ public class NaijagovController {
       wardObject = optionalWard.get();
       modelAndView.addObject(wardObject);
     }
+    modelAndView.setViewName("ward");
+
     Pageable sortedPage = getSortedPage(form.getWardPage(), pageable, sortBy, sortDirection);
     form.setWardPage(pollingUnitService.getPollingUnits(sortedPage, wardObject));
-    modelAndView.setViewName("ward");
     return modelAndView;
   }
 
@@ -125,11 +126,16 @@ public class NaijagovController {
   }
 
   public ModelAndView getConstituencyModelAndView(Optional<?> constituency, String constituencyName) {
+    ModelAndView modelAndView = getConstituencyModelAndView(constituency);
+    modelAndView.setViewName(constituencyName);
+    return modelAndView;
+  }
+
+  public ModelAndView getConstituencyModelAndView(Optional<?> constituency) {
     ModelAndView modelAndView = new ModelAndView();
     if (constituency.isPresent()) {
       modelAndView.addObject(constituency.get());
     }
-    modelAndView.setViewName(constituencyName);
     return modelAndView;
   }
 
