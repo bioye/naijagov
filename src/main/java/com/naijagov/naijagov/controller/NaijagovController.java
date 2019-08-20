@@ -81,6 +81,7 @@ public class NaijagovController {
     @PageableDefault(size = 10, sort = "fullCode", direction = Sort.Direction.ASC) Pageable pageable,
     @ModelAttribute Form form, ModelAndView mv, @RequestParam("sortBy") Optional<String> sortBy,
     @RequestParam("sortDirection") Optional<Sort.Direction> sortDirection) {
+      
       Pageable sortedPage = locations(form.getPollingUnitsPage(), pageable, sortBy, sortDirection);
       form.setPollingUnitsPage(pollingUnitService.listAllPollingUnits(sortedPage));
       mv.setViewName("pollingunits");
@@ -134,22 +135,9 @@ public class NaijagovController {
       modelAndView.addObject(wardObject);
 
     }
-    // get pollingUnits for ward
-    Pageable sortedPage = pageable;
-    // initial page load, no params
-    if (form.getWardPage() == null) {
-      sortedPage = pageable;
-    }
-    // when header sort is clicked
-    else if (sortBy.isPresent() && sortDirection.isPresent()){
-      sortedPage = PageRequest.of(form.getWardPage().getNumber(), form.getWardPage().getSize(), sortDirection.get(), sortBy.get());
-    }
-    // when navigation link is clicked
-    else if (form.getWardPage() != null){
-      sortedPage = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), form.getWardPage().getSort());
-    }
-    form.setWardPage(pollingUnitService.getPollingUnits(sortedPage, wardObject));
+    Pageable sortedPage = locations(form.getWardPage(), pageable, sortBy, sortDirection);
 
+    form.setWardPage(pollingUnitService.getPollingUnits(sortedPage, wardObject));
     modelAndView.setViewName("ward");
     return modelAndView;
   }
