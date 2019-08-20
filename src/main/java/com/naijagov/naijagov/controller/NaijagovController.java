@@ -131,6 +131,15 @@ public class NaijagovController {
     return modelAndView;
   }
 
+  public ModelAndView getConstituencyModelAndView(Optional<?> constituency, String constituencyName) {
+    ModelAndView modelAndView = new ModelAndView();
+    if (constituency.isPresent()) {
+      modelAndView.addObject(constituency.get());
+    }
+    modelAndView.setViewName(constituencyName);
+    return modelAndView;
+  }
+
   public Pageable getSortedPage(Page<?> page, Pageable pageable, Optional<String> sortBy,
       Optional<Sort.Direction> sortDirection) {
 
