@@ -78,26 +78,13 @@ public class NaijagovController {
 
   @GetMapping("/pollingunits")
   public ModelAndView pollingUnits(
-      @PageableDefault(size = 10, sort = "fullCode", direction = Sort.Direction.ASC) Pageable pageable,
-      @ModelAttribute Form form, ModelAndView mv, @RequestParam("sortBy") Optional<String> sortBy,
-      @RequestParam("sortDirection") Optional<Sort.Direction> sortDirection) {
-    Pageable sortedPage = pageable;
-    // initial page load, no params
-    if (form.getPollingUnitsPage() == null) {
-      sortedPage = pageable;
-    }
-    // when header sort is clicked
-    else if (sortBy.isPresent() && sortDirection.isPresent()){
-      sortedPage = PageRequest.of(form.getPollingUnitsPage().getNumber(), form.getPollingUnitsPage().getSize(), sortDirection.get(), sortBy.get());
-    }
-    // when navigation link is clicked
-    else if (form.getPollingUnitsPage() != null){
-      sortedPage = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), form.getPollingUnitsPage().getSort());
-    }
-    form.setPollingUnitsPage(pollingUnitService.listAllPollingUnits(sortedPage));
-
-    mv.setViewName("pollingunits");
-    return mv;
+    @PageableDefault(size = 10, sort = "fullCode", direction = Sort.Direction.ASC) Pageable pageable,
+    @ModelAttribute Form form, ModelAndView mv, @RequestParam("sortBy") Optional<String> sortBy,
+    @RequestParam("sortDirection") Optional<Sort.Direction> sortDirection) {
+      Pageable sortedPage = locations(form.getPollingUnitsPage(), pageable, sortBy, sortDirection);
+      form.setPollingUnitsPage(pollingUnitService.listAllPollingUnits(sortedPage));
+      mv.setViewName("pollingunits");
+      return mv;
   }
 
   @GetMapping("/localgovs")
