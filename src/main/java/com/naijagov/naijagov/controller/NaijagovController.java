@@ -121,14 +121,7 @@ public class NaijagovController {
 
   @GetMapping("/pollingunit/{id}")
   public ModelAndView displayPollingUnit(@PathVariable Integer id) {
-
-    Optional<PollingUnit> optionalPu = pollingUnitService.findPollingUnit(id);
-    ModelAndView modelAndView = new ModelAndView();
-    if (optionalPu.isPresent()) {
-      modelAndView.addObject(optionalPu.get());
-    }
-    modelAndView.setViewName("pollingunit");
-    return modelAndView;
+    return getConstituencyModelAndView(pollingUnitService.findPollingUnit(id), "pollingunit");
   }
 
   public ModelAndView getConstituencyModelAndView(Optional<?> constituency, String constituencyName) {
