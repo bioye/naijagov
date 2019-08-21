@@ -5,7 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Entity
-public class PollingCentre implements Serializable {
+public class PollingCentre implements Serializable, Constituency {
 
   private String description;
   private int code;

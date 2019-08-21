@@ -7,7 +7,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 @Entity
-public class PollingUnit implements Serializable {
+public class PollingUnit implements Serializable, Constituency {
 
     @ManyToOne
     private Ward ward;

@@ -1,5 +1,6 @@
 package com.naijagov.naijagov.controller;
 
+import com.naijagov.naijagov.model.Constituency;
 import com.naijagov.naijagov.model.Form;
 import com.naijagov.naijagov.model.LocalGov;
 import com.naijagov.naijagov.model.PollingUnit;
@@ -105,16 +106,8 @@ public class NaijagovController {
       @ModelAttribute Form form, ModelAndView mv, @RequestParam("sortBy") Optional<String> sortBy,
       @RequestParam("sortDirection") Optional<Sort.Direction> sortDirection) {
 
-    Optional<Ward> optionalWard = wardService.findWard(id);
-    ModelAndView modelAndView = new ModelAndView();
-    Ward wardObject = null;
-    if (optionalWard.isPresent()) {
-      // what's the significance of this?
-      wardObject = optionalWard.get();
-      modelAndView.addObject(wardObject);
-    }
-    modelAndView.setViewName("ward");
-
+    Ward wardObject = getConstituency(wardService.findWard(id));
+    ModelAndView modelAndView = getConstituencyModelAndView(wardObject, "ward");
     Pageable sortedPage = getSortedPage(form.getWardPage(), pageable, sortBy, sortDirection);
     form.setWardPage(pollingUnitService.getPollingUnits(sortedPage, wardObject));
     return modelAndView;
@@ -125,18 +118,33 @@ public class NaijagovController {
     return getConstituencyModelAndView(pollingUnitService.findPollingUnit(id), "pollingunit");
   }
 
-  public ModelAndView getConstituencyModelAndView(Optional<?> constituency, String constituencyName) {
+  public ModelAndView getConstituencyModelAndView(Optional<? extends Constituency> optional, String constituencyName) {
+    return getConstituencyModelAndView(getConstituency(optional), constituencyName);
+  }
+
+  public ModelAndView getConstituencyModelAndView(Constituency constituency, String constituencyName) {
     ModelAndView modelAndView = getConstituencyModelAndView(constituency);
     modelAndView.setViewName(constituencyName);
     return modelAndView;
   }
 
-  public ModelAndView getConstituencyModelAndView(Optional<?> constituency) {
+  public ModelAndView getConstituencyModelAndView(Constituency constituency) {
     ModelAndView modelAndView = new ModelAndView();
-    if (constituency.isPresent()) {
-      modelAndView.addObject(constituency.get());
-    }
+    modelAndView.addObject(constituency);
     return modelAndView;
+  }
+
+  public ModelAndView getConstituencyModelAndView(Optional<? extends Constituency> optional) {
+    ModelAndView modelAndView = new ModelAndView();
+    modelAndView.addObject(getConstituency(optional));
+    return modelAndView;
+  }
+
+  public <T extends Constituency> T getConstituency(Optional<T> optional){
+    if (optional.isPresent()) {
+      return optional.get();
+    }
+    return null;
   }
 
   public Pageable getSortedPage(Page<?> page, Pageable pageable, Optional<String> sortBy,

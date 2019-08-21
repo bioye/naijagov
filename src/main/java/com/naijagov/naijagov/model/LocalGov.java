@@ -4,7 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Entity
-public class LocalGov {
+public class LocalGov implements Constituency{
   
 	@Id
 	private int id;
