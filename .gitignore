@@ -1,0 +1,8 @@
+node_modules
+dist
+.env
+*.local
+coverage
+.turbo
+*.tsbuildinfo
+.DS_Store
