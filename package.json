@@ -1,53 +1,26 @@
-
 {
-
   "name": "naijagov",
-
   "version": "0.0.1",
-
   "private": true,
-
   "packageManager": "pnpm@9.1.0",
-
   "scripts": {
-
     "dev": "pnpm --filter @naijagov/api dev",
-
     "build": "pnpm --filter @naijagov/api build",
-
     "test": "pnpm --filter @naijagov/api test",
-
     "test:coverage": "pnpm --filter @naijagov/api test:coverage",
-
     "lint": "pnpm -r lint",
-
     "typecheck": "pnpm -r typecheck",
-
     "db:generate": "pnpm --filter @naijagov/db generate",
-
     "db:migrate": "pnpm --filter @naijagov/db migrate",
-
     "db:seed": "pnpm --filter @naijagov/db seed"
-
   },
-
   "workspaces": [
-
     "apps/*",
-
     "packages/*"
-
   ],
-
   "pnpm": {
-
     "overrides": {
-
       "esbuild": "0.21.5"
-
     }
-
   }
-
 }
-
