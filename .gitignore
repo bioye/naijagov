@@ -6,3 +6,7 @@ coverage
 .turbo
 *.tsbuildinfo
 .DS_Store
+data/
+*.sql
+data/
+*.sql
